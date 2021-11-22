@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  php-fpm:
+    build: phpdocker/php-fpm
+    working_dir: /var/www/site
+    volumes:
+      - '.:/var/www/site'
+      - './data/txt/index.txt:/etc/txt/index.txt'
+  webserver:
+    image: 'nginx:alpine'
+    working_dir: /var/www/site
+    volumes:
+      - '.:/var/www/site'
+      - './phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
+    ports:
+      - '8080:80'
+    links:
+      - mysql
+  mysql:
+    image: 'mysql:8.0'
+    working_dir: /var/www/site
+    volumes:
+      - '.:/var/www/site'
+      - './data/mysql:/var/lib/mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${BX_MYSQL_DATABASE}
+      - MYSQL_USER=${BX_MYSQL_USER}
+      - MYSQL_PASSWORD=${BX_MYSQL_PASSWORD}
+    ports:
+      - '8081:3306'
