@@ -1,0 +1,17 @@
+{
+    "name": "sogener/crt",
+    "autoload": {
+        "psr-4": {
+            "Sogener\\Crt\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gleb Kalinin",
+            "email": "glebstuck@yandex.ru"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
+}
